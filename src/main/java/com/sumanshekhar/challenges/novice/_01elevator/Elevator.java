@@ -1,13 +1,12 @@
-package com.sumanshekhar.challenges.novice;
+package com.sumanshekhar.challenges.novice._01elevator;
 
 import java.util.*;
 
 //An elevator goes up , it continues to go up until there are no *dropoffs or *pickup requests in that direction
 public class Elevator {
-
-    private static final int minFloor = 0;
-    private static final int maxFloor = 10;
-    private static int processingTime = 500;
+    private static final int MIN_FLOOR = 0;
+    private static final int MAX_FLOOR = 10;
+    private static int processingTime = 500;//ms
 
     private int currentFloor;
     private Direction currentDirection;
@@ -16,7 +15,7 @@ public class Elevator {
     private Map<Integer, List<Integer>> requestedPathsMap;
 
 
-    //    Once the people at a given floor have boarded the elevator,
+//    Once the people at a given floor have boarded the elevator,
 //    *The currentFloorDestinations array -> (keeps track of the floors the elevator will visit
 //    by setting the value at the appropriate index to true)
 //    Your job is to implement the
@@ -24,14 +23,14 @@ public class Elevator {
 //    callElevator()
 //    and moveElevator() functions
 //    We also have a main function that provides an easy way to manually test your elevator implementation.
+
     private Boolean[] currentFloorDestinations;
 
     public Elevator() {
-        this.currentFloor = 0;
-        this.currentDirection = Direction.UP;
+        this.currentFloor = 0;//assumption the lift is starting from Ground
+        this.currentDirection = Direction.UP;//If at bottom , the lift will go up
         this.requestedPathsMap = new HashMap<>();
-        this.currentFloorDestinations = new Boolean[maxFloor + 1];
-
+        this.currentFloorDestinations = new Boolean[MAX_FLOOR + 1];
         Arrays.fill(this.currentFloorDestinations, Boolean.FALSE);
     }
 
@@ -53,7 +52,6 @@ public class Elevator {
 
     public void start() throws InterruptedException {
         currentDirection = Direction.UP;//Assumption the lift is on ground floor initially
-
         do {
             System.out.println("--------");
             processFloor(currentFloor);
@@ -102,10 +100,12 @@ public class Elevator {
         moveElevator();
     }
 
-
     //TO DO #3
     private void moveElevator() throws InterruptedException {
-        if (!Arrays.asList(currentFloorDestinations).contains(true) && requestedPathsMap.isEmpty()) {//STOPPING THE ELEVATOR :checking destinations are reraached and request list is emplyy
+
+        //SETIING OF DIRECTION
+        //IDELING the elevator
+        if (!Arrays.asList(currentFloorDestinations).contains(true) && requestedPathsMap.isEmpty()) {//STOPPING THE ELEVATOR :checking destinations are reached and request list is empty
             currentDirection = Direction.IDLE;//this will break the while loop in our initial start() method
             return;
         } else if (isInvalidFloor(currentFloor + 1)) {//SWITCH TO DOWN direction when reached top floor
@@ -146,6 +146,6 @@ public class Elevator {
     }
 
     private boolean isInvalidFloor(int floor) {
-        return floor < minFloor || floor > maxFloor;
+        return floor < MIN_FLOOR || floor > MAX_FLOOR;
     }
 }

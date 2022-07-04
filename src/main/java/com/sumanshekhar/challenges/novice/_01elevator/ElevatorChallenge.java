@@ -1,4 +1,4 @@
-package com.sumanshekhar.challenges.novice;
+package com.sumanshekhar.challenges.novice._01elevator;
 
 import java.util.Scanner;
 
@@ -24,8 +24,8 @@ public class ElevatorChallenge {
     }
 
     public static void main(String[] args) throws InterruptedException {
-//        manualElevator();
-        automaticElevator();
+        manualElevator();
+//        automaticElevator();
     }
 
 }
